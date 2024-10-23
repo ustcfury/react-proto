@@ -1,4 +1,4 @@
-import path from 'path'
+import path from 'node:path'
 
 const IS_DEV: boolean = String(process.env.NODE_ENV).trim() === 'development'
 
@@ -33,7 +33,7 @@ const ALIAS: Record<string, string> = {
   store: `${SRC_DIR}/store`,
   types: `${SRC_DIR}/types`,
   utils: `${SRC_DIR}/utils`,
-  rspack: path.join(__dirname, '../rspack')
+  rspack: path.join(__dirname, '../rspack'),
 }
 
 if (IS_PREACT) {
@@ -41,7 +41,7 @@ if (IS_PREACT) {
     react: 'preact/compat',
     'react-dom': 'preact/compat',
     'react-dom/test-utils': 'preact/test-utils',
-    '@testing-library/react': '@testing-library/preact'
+    '@testing-library/react': '@testing-library/preact',
   })
 }
 
@@ -54,5 +54,5 @@ export {
   IS_LAZY_COMPILATION,
   SERVER_BUNDLE_NAME,
   SERVER_SRC_DIR,
-  SRC_DIR
+  SRC_DIR,
 }

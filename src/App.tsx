@@ -1,22 +1,22 @@
-import { FC, ReactElement, useEffect } from 'react'
-import { useRoutes } from 'react-router-dom'
 import cn from 'classnames'
+import { type FC, type ReactElement, useEffect } from 'react'
+import { useRoutes } from 'react-router-dom'
 
 import {
-  ThemeSwitcher,
-  LanguageSelector,
   ErrorBoundary,
-  Offline
+  LanguageSelector,
+  Offline,
+  ThemeSwitcher,
 } from 'components'
 import { routes } from 'router/Router'
 
-import { useAppSelector, useAppDispatch, RootState } from 'store/store'
-import { switchToDark } from 'store/theme/themeSlice'
 import {
   THEME_NAMES,
   localStorageAppKey,
-  reduxHydrationAction
+  reduxHydrationAction,
 } from 'constants/commonConstants'
+import { type RootState, useAppDispatch, useAppSelector } from 'store/store'
+import { switchToDark } from 'store/theme/themeSlice'
 
 import { isServer } from 'utils'
 
@@ -47,21 +47,21 @@ const App: FC = (): ReactElement => {
       localStorage.getItem(localStorageAppKey) != null
     ) {
       const localStoragePersistedState: Partial<RootState> = JSON.parse(
-        localStorage.getItem(localStorageAppKey) as string
+        localStorage.getItem(localStorageAppKey) as string,
       )
       dispatch({
         type: reduxHydrationAction,
-        payload: localStoragePersistedState
+        payload: localStoragePersistedState,
       })
     }
-  }, [])
+  }, [dispatch])
 
   return (
     <ErrorBoundary>
       <div
         className={cn(
           'app-wrapper',
-          currentTheme === THEME_NAMES.DARK && 'theme-dark'
+          currentTheme === THEME_NAMES.DARK && 'theme-dark',
         )}
       >
         <LanguageSelector />

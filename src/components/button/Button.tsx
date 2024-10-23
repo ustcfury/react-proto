@@ -1,5 +1,11 @@
-import { FC, ReactElement, ReactNode, MouseEvent, memo } from 'react'
 import cn from 'classnames'
+import {
+  type FC,
+  type MouseEvent,
+  type ReactElement,
+  type ReactNode,
+  memo,
+} from 'react'
 
 import styles from './button.module.scss'
 
@@ -16,7 +22,7 @@ const Button: FC<IButton> = ({
   className,
   disabled = false,
   children,
-  type = 'button'
+  type = 'button',
 }): ReactElement => (
   <button
     type={type}

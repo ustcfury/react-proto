@@ -1,4 +1,4 @@
-import { FC, ReactElement, useState } from 'react'
+import { type FC, type ReactElement, useState } from 'react'
 
 import { pokemonApi } from 'api'
 
@@ -17,14 +17,14 @@ const Fetch: FC = (): ReactElement => {
     {
       selectFromResult: ({ data, isFetching }) => ({
         data,
-        isFetching
-      })
-    }
+        isFetching,
+      }),
+    },
   )
   const { t } = useTranslations()
 
   return (
-    <div className='main fetch'>
+    <div className="main fetch">
       <PageMeta title={t.pageNames.fetch} />
       <h1>{t.fetchText}</h1>
       <Menu />
@@ -34,7 +34,7 @@ const Fetch: FC = (): ReactElement => {
         </WithSpinner>
       </div>
       <Button
-        className='center'
+        className="center"
         onClick={() => {
           setCurrentPokemonID(rndID(99))
         }}

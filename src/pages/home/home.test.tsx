@@ -9,8 +9,8 @@ import userEvent from '@testing-library/user-event'
 // Using an utility for rendering with Redux Provider
 import { renderWithProviders } from 'utils'
 
-import { Home } from './Home'
 import defaultLangTranslations from 'i18n/translations/en.json'
+import { Home } from './Home'
 
 const t = defaultLangTranslations
 
@@ -20,12 +20,12 @@ const t = defaultLangTranslations
 */
 jest.mock('components', () => ({
   ...jest.requireActual('components'),
-  Menu () {
+  Menu() {
     return <></>
   },
-  PageMeta () {
+  PageMeta() {
     return <></>
-  }
+  },
 }))
 
 describe('Home page component', () => {
@@ -33,8 +33,8 @@ describe('Home page component', () => {
     // Render component with Redux Provider with some preloaded state
     renderWithProviders(<Home />, {
       preloadedState: {
-        counter: { value: 42 }
-      }
+        counter: { value: 42 },
+      },
     })
 
     /*
@@ -55,10 +55,10 @@ describe('Home page component', () => {
       but for this you need to design your components with such testing in mind.
     */
     expect(screen.getByText(t.homeButtonText).closest('div')).toHaveTextContent(
-      '1'
+      '1',
     )
     expect(
-      screen.getByText(t.counterDescription.global).closest('div')
+      screen.getByText(t.counterDescription.global).closest('div'),
     ).toHaveTextContent('43')
   })
 })

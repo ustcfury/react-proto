@@ -1,12 +1,12 @@
-import path from 'path'
-import express, { RequestHandler } from 'express'
+import path from 'node:path'
+import { ChunkExtractor } from '@loadable/server'
 import compression from 'compression'
 import cookieParser from 'cookie-parser'
-import { ChunkExtractor } from '@loadable/server'
+import express, { type RequestHandler } from 'express'
 
-import { csp, serverRenderer, nonce } from 'server/middlewares'
-import { IS_RENDER_TO_STREAM, SERVER_PORT } from 'server/constants'
 import { DIST_DIR, IS_DEV, SRC_DIR } from '_webpack/constants'
+import { IS_RENDER_TO_STREAM, SERVER_PORT } from 'server/constants'
+import { csp, nonce, serverRenderer } from 'server/middlewares'
 
 const { PORT = SERVER_PORT } = process.env
 
@@ -39,7 +39,7 @@ const runServer = (hotReload?: () => RequestHandler[]): void => {
     console.log(
       `App listening on port ${PORT}! (render to ${
         IS_RENDER_TO_STREAM ? 'stream' : 'string'
-      })`
+      })`,
     )
   })
 }

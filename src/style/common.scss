@@ -1,3 +1,6 @@
+@use "mixins";
+@use "variables";
+
 html,
 body,
 #root {
@@ -6,17 +9,17 @@ body,
 }
 
 * {
-  font-family: $primary-font;
+  font-family: variables.$primary-font;
   color: var(--secondary-color);
 
   > %headings {
-    font-family: $secondary-font;
+    font-family: variables.$secondary-font;
     color: var(--primary-color);
   }
 }
 
 .app-wrapper {
-  @include flex-center;
+  @include mixins.flex-center;
 
   width: 100%;
   min-height: 100vh;
@@ -32,13 +35,13 @@ body,
 }
 
 @font-face {
-  font-family: $secondary-font-family;
+  font-family: variables.$secondary-font-family;
   font-display: swap;
   src: url('/src/assets/fonts/FjallaOne-Regular.ttf');
 }
 
 @font-face {
-  font-family: $primary-font-family;
+  font-family: variables.$primary-font-family;
   font-display: swap;
   src: url('/src/assets/fonts/MerriweatherSans.ttf');
 }

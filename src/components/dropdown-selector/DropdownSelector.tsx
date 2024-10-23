@@ -1,5 +1,11 @@
-import { FC, ReactElement, useEffect, useState, ChangeEvent } from 'react'
 import cn from 'classnames'
+import {
+  type ChangeEvent,
+  type FC,
+  type ReactElement,
+  useEffect,
+  useState,
+} from 'react'
 
 import styles from './dropdownSelector.module.scss'
 interface IDropdownSelector {
@@ -15,7 +21,7 @@ const DropdownSelector: FC<IDropdownSelector> = ({
   value,
   description,
   onChange,
-  className
+  className,
 }): ReactElement => {
   const [selectedOption, setSelectedOption] = useState<string>(value)
 
@@ -29,7 +35,7 @@ const DropdownSelector: FC<IDropdownSelector> = ({
     if (value !== selectedOption) {
       setSelectedOption(value)
     }
-  }, [value])
+  }, [value, selectedOption])
 
   return (
     <select

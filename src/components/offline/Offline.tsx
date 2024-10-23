@@ -1,8 +1,8 @@
-import { FC, ReactElement } from 'react'
 import cn from 'classnames'
+import type { FC, ReactElement } from 'react'
 
-import useTranslations from 'i18n/useTranslations'
 import { useOnlineStatus } from 'hooks'
+import useTranslations from 'i18n/useTranslations'
 
 import styles from './offline.module.scss'
 
@@ -19,7 +19,7 @@ const Offline: FC<IOffline> = ({ className }): ReactElement => {
       className={cn(
         className,
         styles.offline,
-        isAppOnline ? styles.hide : styles.show
+        isAppOnline ? styles.hide : styles.show,
       )}
     >
       {t.offlineText}

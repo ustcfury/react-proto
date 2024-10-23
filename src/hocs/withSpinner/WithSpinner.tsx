@@ -1,4 +1,10 @@
-import { FC, ReactElement, ReactNode, useState, useEffect } from 'react'
+import {
+  type FC,
+  type ReactElement,
+  type ReactNode,
+  useEffect,
+  useState,
+} from 'react'
 
 import { Spinner } from 'components'
 
@@ -13,7 +19,7 @@ const WithSpinner: FC<IWithSpinner> = ({
   children,
   isSpinnerShown = false,
   isShadowLoading = false,
-  minTimeSpinnerShown
+  minTimeSpinnerShown,
 }): ReactElement => {
   const [showSpinner, setShowSpinner] = useState(false)
 
@@ -28,7 +34,7 @@ const WithSpinner: FC<IWithSpinner> = ({
     } else {
       setShowSpinner(isSpinnerShown)
     }
-  }, [isSpinnerShown])
+  }, [isSpinnerShown, minTimeSpinnerShown, showSpinner])
 
   if (showSpinner) {
     if (isShadowLoading) {

@@ -1,9 +1,9 @@
-import { FC, ReactElement } from 'react'
 import cn from 'classnames'
+import type { FC, ReactElement } from 'react'
 
-import { useAppSelector, useAppDispatch } from 'store/store'
-import { toggle as toggleTheme } from 'store/theme/themeSlice'
 import useTranslations from 'i18n/useTranslations'
+import { useAppDispatch, useAppSelector } from 'store/store'
+import { toggle as toggleTheme } from 'store/theme/themeSlice'
 
 import { Switcher } from 'components'
 import { THEME_NAMES } from 'constants/commonConstants'

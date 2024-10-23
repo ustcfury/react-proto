@@ -1,13 +1,13 @@
-import { Request } from 'express'
+import type { Request } from 'express'
 
-import { RootState } from 'store/store'
 import {
+  type TSupportedLanguages,
+  type TTranslations,
   defaultLang,
   supportedLangs,
-  TSupportedLanguages,
-  TTranslations
 } from 'i18n/i18nConfig'
 import { initialState } from 'i18n/i18nSlice'
+import type { RootState } from 'store/store'
 
 interface ITranslations {
   [key: string]: string | ITranslations
@@ -15,23 +15,25 @@ interface ITranslations {
 
 const loadTranslations = async (lang: string): Promise<ITranslations> => {
   const json = await import(`i18n/translations/${lang}.json`, {
-    assert: { type: 'json' }
+    assert: { type: 'json' },
   })
   return json.default
 }
 
 export const setTranslations = async (
-  req: Request
+  req: Request,
 ): Promise<Pick<RootState, 'i18n'>> => {
   const i18nState = { ...initialState }
   const userAcceptsLanguages = req.acceptsLanguages(
-    Object.keys(supportedLangs)
+    Object.keys(supportedLangs),
   ) as keyof TSupportedLanguages | boolean
   let lang = defaultLang
 
-  userAcceptsLanguages === false
-    ? (lang = defaultLang)
-    : (lang = userAcceptsLanguages as keyof TSupportedLanguages)
+  if (userAcceptsLanguages === false) {
+    lang = defaultLang
+  } else {
+    lang = userAcceptsLanguages as keyof TSupportedLanguages
+  }
 
   if (userAcceptsLanguages === defaultLang) return { i18n: i18nState }
 

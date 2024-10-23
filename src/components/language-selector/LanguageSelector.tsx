@@ -1,5 +1,5 @@
-import { FC, ReactElement } from 'react'
 import cn from 'classnames'
+import type { FC, ReactElement } from 'react'
 
 import useTranslations from 'i18n/useTranslations'
 
@@ -12,7 +12,7 @@ interface ILanguageSelector {
 }
 
 const LanguageSelector: FC<ILanguageSelector> = ({
-  className
+  className,
 }): ReactElement => {
   const { t, lang, supportedLangs, setLang } = useTranslations()
 

@@ -1,6 +1,6 @@
+import { randomUUID } from 'node:crypto'
+import type { NextFunction, Request, Response } from 'express'
 import helmet from 'helmet'
-import { randomUUID } from 'crypto'
-import { Response, Request, NextFunction } from 'express'
 import { IS_DEV } from 'rspack/constants'
 
 const nonce = (_req: Request, res: Response, next: NextFunction): void => {
@@ -8,7 +8,7 @@ const nonce = (_req: Request, res: Response, next: NextFunction): void => {
   next()
 }
 
-const csp = (req: Request, res: Response, next: NextFunction): void => {
+const csp = (req: Request, res: Response, next: NextFunction) => {
   const middleware = helmet({
     contentSecurityPolicy: {
       useDefaults: true,
@@ -18,13 +18,13 @@ const csp = (req: Request, res: Response, next: NextFunction): void => {
         scriptSrc: [
           "'self'",
           `'nonce-${String(res.locals.cspNonce)}'`,
-          IS_DEV ? "'unsafe-eval'" : ''
-        ]
-      }
+          IS_DEV ? "'unsafe-eval'" : '',
+        ],
+      },
     },
     crossOriginEmbedderPolicy: { policy: 'credentialless' },
     noSniff: false,
-    originAgentCluster: false
+    originAgentCluster: false,
   })
 
   return middleware(req, res, next)

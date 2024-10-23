@@ -1,9 +1,9 @@
-import { FC, ReactElement, memo } from 'react'
-import { NavLink } from 'react-router-dom'
 import cn from 'classnames'
+import { type FC, type ReactElement, memo } from 'react'
+import { NavLink } from 'react-router-dom'
 
-import useTranslations from 'i18n/useTranslations'
 import { ROUTE_CONSTANTS } from 'constants/routeConstants'
+import useTranslations from 'i18n/useTranslations'
 
 import styles from './menu.module.scss'
 
@@ -20,7 +20,8 @@ const Menu: FC<IMenu> = ({ className }): ReactElement => {
         to={ROUTE_CONSTANTS.HOME}
         end
         className={({ isActive }) =>
-          isActive ? cn(styles.item, styles['item-active']) : styles.item}
+          isActive ? cn(styles.item, styles['item-active']) : styles.item
+        }
       >
         {t.pageNames.home}
       </NavLink>
@@ -28,7 +29,8 @@ const Menu: FC<IMenu> = ({ className }): ReactElement => {
       <NavLink
         to={ROUTE_CONSTANTS.FETCH}
         className={({ isActive }) =>
-          isActive ? cn(styles.item, styles['item-active']) : styles.item}
+          isActive ? cn(styles.item, styles['item-active']) : styles.item
+        }
       >
         {t.pageNames.fetch}
       </NavLink>
@@ -36,7 +38,8 @@ const Menu: FC<IMenu> = ({ className }): ReactElement => {
       <NavLink
         to={ROUTE_CONSTANTS.ABOUT}
         className={({ isActive }) =>
-          isActive ? cn(styles.item, styles['item-active']) : styles.item}
+          isActive ? cn(styles.item, styles['item-active']) : styles.item
+        }
       >
         {t.pageNames.about}
       </NavLink>

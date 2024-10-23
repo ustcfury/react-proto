@@ -1,4 +1,4 @@
-import { Component, ErrorInfo, ReactNode } from 'react'
+import { Component, type ErrorInfo, type ReactNode } from 'react'
 
 import { Oops } from 'components'
 
@@ -12,33 +12,31 @@ interface IProps {
 
 class ErrorBoundary extends Component<IProps> {
   state: ErrorState = {
-    isError: false
+    isError: false,
   }
 
-  static getDerivedStateFromError (): ErrorState {
+  static getDerivedStateFromError(): ErrorState {
     return { isError: true }
   }
 
-  componentDidCatch (error: Error, errorInfo: ErrorInfo): void {
+  componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
     console.error(
-      `Pay attention to the error. ${String(error)}: ${String(errorInfo)}`
+      `Pay attention to the error. ${String(error)}: ${String(errorInfo)}`,
     )
   }
 
   clearState = (): void => {
     this.setState({
-      isError: false
+      isError: false,
     })
   }
 
-  render (): ReactNode {
-    return this.state.isError
-      ? (
-        <Oops clearState={this.clearState} />
-        )
-      : (
-          this.props.children
-        )
+  render(): ReactNode {
+    return this.state.isError ? (
+      <Oops clearState={this.clearState} />
+    ) : (
+      this.props.children
+    )
   }
 }
 

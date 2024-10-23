@@ -1,8 +1,8 @@
-import { FC, useEffect, useState, ReactElement } from 'react'
+import { type FC, type ReactElement, useEffect, useState } from 'react'
 
-import { useAppSelector, useAppDispatch } from 'store/store'
-import { increment } from 'store/counter/counterSlice'
 import useTranslations from 'i18n/useTranslations'
+import { increment } from 'store/counter/counterSlice'
+import { useAppDispatch, useAppSelector } from 'store/store'
 
 import { Button, Counter, Menu, PageMeta } from 'components'
 
@@ -22,8 +22,8 @@ const Home: FC = (): ReactElement => {
   }, [])
 
   return (
-    <div className='main home'>
-      <PageMeta title={t.pageNames.home} description='test' />
+    <div className="main home">
+      <PageMeta title={t.pageNames.home} description="test" />
       <h1>{t.homeText}</h1>
       <Menu />
       <div className={styles.counters}>
@@ -34,7 +34,7 @@ const Home: FC = (): ReactElement => {
         />
       </div>
       <Button
-        className='center'
+        className="center"
         onClick={() => {
           setCount((prevState) => prevState + 1)
           dispatch(increment())

@@ -1,4 +1,10 @@
-import { FC, ReactElement, ReactNode, useState, useEffect } from 'react'
+import {
+  type FC,
+  type ReactElement,
+  type ReactNode,
+  useEffect,
+  useState,
+} from 'react'
 
 interface INoSsr {
   fallback?: JSX.Element

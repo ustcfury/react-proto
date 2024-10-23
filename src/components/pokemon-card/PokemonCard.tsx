@@ -1,5 +1,5 @@
-import { FC, ReactElement } from 'react'
 import cn from 'classnames'
+import type { FC, ReactElement } from 'react'
 
 import { Image } from 'components'
 
@@ -14,7 +14,7 @@ interface IPokemonCard {
 const PokemonCard: FC<IPokemonCard> = ({
   className,
   name,
-  sprite
+  sprite,
 }): ReactElement => (
   <div className={cn(className, styles.frame)}>
     <Image src={sprite} className={styles.sprite} withLoader />

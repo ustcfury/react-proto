@@ -1,6 +1,6 @@
 # React Proto - React TypeScript Boilerplate
 
-![node.js@22](https://img.shields.io/badge/node.js-22-339933?style=for-the-badge&logo=nodedotjs) ![typescript@5](https://img.shields.io/badge/typescript-5-3178C6?style=for-the-badge&logo=typescript) ![reactjs@18](https://img.shields.io/badge/Reactjs-18-61DAFB?style=for-the-badge&logo=react) ![rspack@1](https://img.shields.io/badge/rspack-1-f0965b?style=for-the-badge) ![webpack@5](https://img.shields.io/badge/webpack-5-8dd6f9?style=for-the-badge&logo=webpack) ![sass@1.7](https://img.shields.io/badge/sass-1.7-CC6699?style=for-the-badge&logo=sass) ![ts-standard](https://img.shields.io/badge/standard-ts-F3DF49?style=for-the-badge&logo=standardjs)
+![node.js@22](https://img.shields.io/badge/node.js-22-339933?style=for-the-badge&logo=nodedotjs) ![typescript@5](https://img.shields.io/badge/typescript-5-3178C6?style=for-the-badge&logo=typescript) ![reactjs@18](https://img.shields.io/badge/Reactjs-18-61DAFB?style=for-the-badge&logo=react) ![rspack@1](https://img.shields.io/badge/rspack-1-f0965b?style=for-the-badge) ![webpack@5](https://img.shields.io/badge/webpack-5-8dd6f9?style=for-the-badge&logo=webpack) ![sass@1.7](https://img.shields.io/badge/sass-1.7-CC6699?style=for-the-badge&logo=sass)
 
 <img align="right" width="100" src="src/assets/images/logo.png">
 
@@ -23,7 +23,7 @@ Webpack is still available as an option ([rspack vs webpack](#rspack-vs-webpack)
 - [What's Inside](#whats-inside)
 - [The App](#the-app)
 - [How to Use](#how-to-use)
-- [Basic Project Configuration](#basic-project-Configuration)
+- [Basic Project Configuration](#basic-project-configuration)
 - [General Notices](#general-notices)
 - [Documentation](#documentation)
 - [Changes](#changes)
@@ -83,13 +83,12 @@ i18n (Internationalization):
 
 Styles:
 
-- **(S)CSS modules** (with TypeScript support)
+- **(S)CSS modules** (with TypeScript support; [important note for VSCode](#typescript-css-modules-for-vscode))
 
 Linters:
 
-- **TS Standard** (TypeScript Style Guide, with linter and automatic code fixer based on [StandardJS](https://standardjs.com/))
+- **Biome** ([modern replace for ESLinter and Prettier](https://github.com/biomejs/biome); [configuration Biome for VSCode](#configuration-biome-for-vscode))
 - **Stylelint** (including rules order)
-- **Prettier**
 
 Tests:
 
@@ -239,8 +238,8 @@ Here is a comparison between Rspack 1 with the built-in SWC loader and Webpack 5
 
 |         | Rspack     | webpack   |
 | ------- | --------- | -------- |
-| Server  | 5.35 s | 6.83 s |
-| Client | 5.32 s  | 7.50 s |
+| Server  | 4.82 s | 6.14 s |
+| Client | 4.81 s  | 6.56 s |
 
 Of course, the larger the project, the greater the performance advantage. However, if you need more webpack compatibility or hot module reloading while developing with [Preact](#react-vs-preact), you can always [switch back to the webpack bundler](#switching-back-to-webpack).
 
@@ -248,8 +247,8 @@ Also, the optimization process of Rspack is currently slightly worse. Check the 
 
 |         | Rspack     | webpack   |
 | ------- | --------- | -------- |
-| Parsed  | 284.47 KB | 262.9 KB |
-| Gzipped | 90.29 KB  | 86.84 KB |
+| Parsed  | 285.42 KB | 263.92 KB |
+| Gzipped | 90.55 KB  | 87.16 KB |
 ### React vs Preact
 
 In `webpack\constants.ts` you can choose to use [Preact](https://preactjs.com/) library instead React itself (`IS_PREACT` boolean constant).
@@ -258,8 +257,8 @@ Preact is a fast and compact React-compatible Virtual DOM library. But because i
 
 |         | React     | Preact   |
 | ------- | --------- | -------- |
-| Parsed  | 262.9 KB | 150.55 KB |
-| Gzipped | 86.84 KB  | 52.09 KB |
+| Parsed  | 285.42 KB | 173.3 KB |
+| Gzipped | 90.55 KB  | 56.05 KB |
 
 **Important Note**
 At the moment, the Rspack version of the project does not support hot module reloading during development with Preact. Compared to Webpack, it requires some additional tricky configuration, which I will probably add in the near future. However, if you need HMR (and you definitely do!), you can develop your project using React and then build it with Preact. Or just [switch your project back to the webpack](#switching-back-to-webpack).
@@ -269,6 +268,12 @@ You can freely integrate any React compatible i18n solution. But if React Proto 
 
 ### Why not redux-persist package?
 As for me this solution is overcomplicated in most of cases. It definitely has a lot of "storage engines", state version control and etc., but smart using of Redux Middlewares and Listeners can cover all this functionality in a more precise way.
+
+### Configuration Biome for VSCode
+Please check [this official documentation](https://biomejs.dev/reference/vscode/).
+
+### Typescript CSS Modules for VSCode
+For proper CSS class hinting, please check this [note](https://github.com/mrmckeb/typescript-plugin-css-modules?tab=readme-ov-file#visual-studio-code).
 ## Documentation
 
 _Coming soon._

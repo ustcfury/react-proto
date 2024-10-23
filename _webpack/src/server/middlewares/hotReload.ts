@@ -1,5 +1,5 @@
+import type { RequestHandler } from 'express'
 import webpack from 'webpack'
-import { RequestHandler } from 'express'
 import devMiddleware from 'webpack-dev-middleware'
 import hotMiddleware from 'webpack-hot-middleware'
 
@@ -11,10 +11,10 @@ export const devMiddlewareInstance = devMiddleware(compiler, {
   serverSideRender: true,
   writeToDisk: true,
   publicPath:
-    config.output?.publicPath != null ? String(config.output.publicPath) : '/'
+    config.output?.publicPath != null ? String(config.output.publicPath) : '/',
 })
 
-export function hotReload (): RequestHandler[] {
+export function hotReload(): RequestHandler[] {
   return [devMiddlewareInstance, hotMiddleware(compiler)]
 }
 

@@ -1,6 +1,6 @@
-import { HelmetServerState } from 'react-helmet-async'
+import type { HelmetServerState } from 'react-helmet-async'
 import serialize from 'serialize-javascript'
-import { RootState } from 'store/store'
+import type { RootState } from 'store/store'
 
 interface TTemplate {
   header: string
@@ -35,10 +35,10 @@ export const getHtmlTemplate = (props: {
           <script nonce="${
             props.nonce
           }">window.__PRELOADED_STATE__ = ${serialize(
-            props.preloadedState
+            props.preloadedState,
           )}</script>
           ${props.scriptTags}
         </body>
       </html>
-  `
+  `,
 })

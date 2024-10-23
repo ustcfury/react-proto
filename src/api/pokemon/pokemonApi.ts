@@ -1,9 +1,9 @@
 import {
   buildCreateApi,
   coreModule,
-  reactHooksModule,
   createApi,
-  fetchBaseQuery
+  fetchBaseQuery,
+  reactHooksModule,
 } from '@reduxjs/toolkit/query/react'
 
 import { isServer } from 'utils'
@@ -23,7 +23,7 @@ if (isServer) {
   createApiFunction = buildCreateApi(
     coreModule(),
     // eslint-disable-next-line camelcase
-    reactHooksModule({ unstable__sideEffectsInRender: true })
+    reactHooksModule({ unstable__sideEffectsInRender: true }),
   )
 }
 
@@ -33,10 +33,11 @@ export const pokemonApi = createApiFunction({
   endpoints: (builder) => ({
     getPokemonSpriteById: builder.query<TPokemonData, number>({
       query: (id) => `pokemon/${id}`,
+      // biome-ignore lint/suspicious/noExplicitAny: This should be type from API
       transformResponse: (response: any) => ({
         name: response.species.name,
-        sprite: response.sprites.other.dream_world.front_default
-      })
-    })
-  })
+        sprite: response.sprites.other.dream_world.front_default,
+      }),
+    }),
+  }),
 })

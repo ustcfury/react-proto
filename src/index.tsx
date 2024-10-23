@@ -1,17 +1,17 @@
+import { loadableReady } from '@loadable/component'
 import { StrictMode } from 'react'
 import { createRoot, hydrateRoot } from 'react-dom/client'
-import { BrowserRouter } from 'react-router-dom'
 import { HelmetProvider } from 'react-helmet-async'
-import { loadableReady } from '@loadable/component'
+import { BrowserRouter } from 'react-router-dom'
 
 import { App } from './App'
 
-import { initStore } from 'store/store'
-import { Provider } from 'react-redux'
 import {
   USE_SERVICE_WORKER,
-  localStorageAppKey
+  localStorageAppKey,
 } from 'constants/commonConstants'
+import { Provider } from 'react-redux'
+import { initStore } from 'store/store'
 
 import { isServer } from 'utils'
 
@@ -23,7 +23,7 @@ const serverPreloadedState =
     : {}
 
 let preloadedState = {
-  ...serverPreloadedState
+  ...serverPreloadedState,
 }
 
 if (NO_SSR && localStorage.getItem(localStorageAppKey) != null) {
@@ -33,7 +33,7 @@ if (NO_SSR && localStorage.getItem(localStorageAppKey) != null) {
     Otherwise, check App.tsx file.
   */
   preloadedState = {
-    ...JSON.parse(localStorage.getItem(localStorageAppKey) as string)
+    ...JSON.parse(localStorage.getItem(localStorageAppKey) as string),
   }
 }
 

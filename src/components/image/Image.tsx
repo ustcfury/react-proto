@@ -1,5 +1,5 @@
-import { FC, ReactElement, useState } from 'react'
 import cn from 'classnames'
+import { type FC, type ReactElement, useState } from 'react'
 
 import { WithSpinner } from 'hocs'
 
@@ -20,7 +20,7 @@ const Image: FC<IImage> = ({
   height,
   loading = 'lazy',
   withLoader = false,
-  className
+  className,
 }): ReactElement => {
   const [isLoading, setIsLoading] = useState(true)
 

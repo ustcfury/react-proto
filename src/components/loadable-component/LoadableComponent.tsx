@@ -1,5 +1,5 @@
-import { FC, ReactElement } from 'react'
 import cn from 'classnames'
+import type { FC, ReactElement } from 'react'
 
 import useTranslations from 'i18n/useTranslations'
 
@@ -10,7 +10,7 @@ interface ILoadableComponent {
 }
 
 const LoadableComponent: FC<ILoadableComponent> = ({
-  className
+  className,
 }): ReactElement => {
   const { t } = useTranslations()
 

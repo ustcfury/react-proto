@@ -1,5 +1,5 @@
-import { FC, ReactElement } from 'react'
 import cn from 'classnames'
+import type { FC, ReactElement } from 'react'
 
 import styles from './counter.module.scss'
 
@@ -12,7 +12,7 @@ interface ICounter {
 const Counter: FC<ICounter> = ({
   className,
   description,
-  value = 0
+  value = 0,
 }): ReactElement => (
   <div className={cn(styles.wrapper, className)}>
     {value}

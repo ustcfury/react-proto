@@ -1,22 +1,29 @@
-import path from 'path'
+import path from 'node:path'
 
 import {
-  Configuration,
-  WebpackPluginInstance,
-  HotModuleReplacementPlugin,
+  type Configuration,
   CopyRspackPlugin,
   CssExtractRspackPlugin,
+  DefinePlugin,
+  HotModuleReplacementPlugin,
   HtmlRspackPlugin,
-  DefinePlugin
+  type WebpackPluginInstance,
 } from '@rspack/core'
 
+import LoadablePlugin from '@loadable/webpack-plugin'
 import ReactRefreshPlugin from '@rspack/plugin-react-refresh'
 import CssoWebpackPlugin from 'csso-webpack-plugin'
-import LoadablePlugin from '@loadable/webpack-plugin'
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin'
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
 
-import { ALIAS, DEV_SERVER_PORT, DIST_DIR, IS_DEV, IS_LAZY_COMPILATION, SRC_DIR } from './constants'
+import {
+  ALIAS,
+  DEV_SERVER_PORT,
+  DIST_DIR,
+  IS_DEV,
+  IS_LAZY_COMPILATION,
+  SRC_DIR,
+} from './constants'
 import * as Loaders from './loaders'
 
 const withReport = Boolean(process.env.npm_config_withReport)
@@ -28,9 +35,9 @@ const entry: string[] = [
         ...(process.env.NO_SSR === 'true'
           ? []
           : ['webpack-hot-middleware/client']),
-        'css-hot-loader/hotModuleReplacement'
+        'css-hot-loader/hotModuleReplacement',
       ]
-    : [])
+    : []),
 ]
 
 const filename = (ext: string): string =>
@@ -38,40 +45,40 @@ const filename = (ext: string): string =>
 
 const plugins: WebpackPluginInstance[] = [
   new DefinePlugin({
-    NO_SSR: process.env.NO_SSR === 'true'
+    NO_SSR: process.env.NO_SSR === 'true',
   }),
   ...(process.env.NO_SSR === 'true'
     ? [
         new HtmlRspackPlugin({
           title: 'My App',
-          template: './src/assets/index.html'
-        })
+          template: './src/assets/index.html',
+        }),
       ]
     : []),
   new ForkTsCheckerWebpackPlugin(),
   new CssExtractRspackPlugin({
-    filename: IS_DEV ? '[name].css' : '[name].[contenthash].css'
+    filename: IS_DEV ? '[name].css' : '[name].[contenthash].css',
   }),
   new LoadablePlugin({
     filename: 'stats.json',
-    writeToDisk: true
+    writeToDisk: true,
   }) as { apply: () => void },
   ...(IS_DEV
     ? [new HotModuleReplacementPlugin(), new ReactRefreshPlugin()]
     : [
         new CssoWebpackPlugin(),
         new BundleAnalyzerPlugin({
-          analyzerMode: withReport ? 'server' : 'disabled'
-        })
+          analyzerMode: withReport ? 'server' : 'disabled',
+        }),
       ]),
   new CopyRspackPlugin({
     patterns: [
       { from: `${SRC_DIR}/i18n/translations`, to: 'lang' },
       ...(process.env.NO_SSR === 'true'
         ? [{ from: `${SRC_DIR}/sw.js`, to: 'sw.js' }]
-        : [])
-    ]
-  })
+        : []),
+    ],
+  }),
 ]
 
 const clientConfig: Configuration = {
@@ -82,7 +89,7 @@ const clientConfig: Configuration = {
   output: {
     path: DIST_DIR,
     filename: filename('js'),
-    publicPath: '/'
+    publicPath: '/',
   },
   devtool: IS_DEV ? 'source-map' : false,
   resolve: {
@@ -90,17 +97,17 @@ const clientConfig: Configuration = {
     extensions: ['.tsx', '.ts', '.js', '.scss', '.css'],
     fallback: {
       url: false,
-      path: false
-    }
+      path: false,
+    },
   },
   module: {
-    rules: Object.values(Loaders).map((el) => el.client)
+    rules: Object.values(Loaders).map((el) => el.client),
   },
   ...(process.env.NO_SSR === 'true' && {
     devServer: {
       historyApiFallback: true,
-      port: DEV_SERVER_PORT
-    }
+      port: DEV_SERVER_PORT,
+    },
   }),
   optimization: {
     splitChunks: {
@@ -108,14 +115,14 @@ const clientConfig: Configuration = {
         vendor: {
           name: 'vendors',
           test: /[\\/]node_modules[\\/]/,
-          chunks: 'all'
-        }
-      }
-    }
+          chunks: 'all',
+        },
+      },
+    },
   },
   experiments: {
-    lazyCompilation: IS_LAZY_COMPILATION
-  }
+    lazyCompilation: IS_LAZY_COMPILATION,
+  },
 }
 
 export { clientConfig }

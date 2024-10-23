@@ -1,5 +1,5 @@
-import { FC, ReactElement } from 'react'
 import loadable from '@loadable/component'
+import type { FC, ReactElement } from 'react'
 
 import { Menu, PageMeta, Spinner } from 'components'
 import useTranslations from 'i18n/useTranslations'
@@ -14,15 +14,15 @@ const LoadableComponent = loadable(
     ),
   {
     resolveComponent: (components) => components.LoadableComponent,
-    fallback: <Spinner />
-  }
+    fallback: <Spinner />,
+  },
 )
 
 const About: FC = (): ReactElement => {
   const { t, tt } = useTranslations()
 
   return (
-    <div className='main about'>
+    <div className="main about">
       <PageMeta title={t.aboutText} />
       <h1>{tt('aboutText')}</h1>
       <Menu />

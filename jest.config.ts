@@ -21,8 +21,8 @@ const config: Config = {
     '^style(.*)$': '<rootDir>/src/style$1',
     '^store(.*)$': '<rootDir>/src/store$1',
     '^types(.*)$': '<rootDir>/src/types$1',
-    '^utils(.*)$': '<rootDir>/src/utils$1'
-  }
+    '^utils(.*)$': '<rootDir>/src/utils$1',
+  },
 }
 
 export default config

@@ -1,5 +1,5 @@
-import { FC, ReactElement } from 'react'
 import cn from 'classnames'
+import type { FC, ReactElement } from 'react'
 
 import styles from './spinner.module.scss'
 

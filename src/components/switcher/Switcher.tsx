@@ -1,5 +1,5 @@
-import { FC, ReactElement, ChangeEvent } from 'react'
 import cn from 'classnames'
+import type { ChangeEvent, FC, ReactElement } from 'react'
 
 import styles from './switcher.module.scss'
 
@@ -20,16 +20,16 @@ const Switcher: FC<ISwitcher> = ({
   isOn = false,
   description,
   leftIcon,
-  rightIcon
+  rightIcon,
 }): ReactElement => (
   <div className={cn(styles.switcher, className, isOn && styles.checked)}>
     <label aria-label={description}>
       <input
-        type='checkbox'
+        type="checkbox"
         disabled={disabled}
         {...(onChangeHandler != null && {
           onChange: onChangeHandler,
-          checked: isOn
+          checked: isOn,
         })}
       />
       {(leftIcon != null || rightIcon != null) && (

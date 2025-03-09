@@ -1,4 +1,4 @@
-import path from 'node:path'
+import path from "node:path";
 
 import {
   type Configuration,
@@ -7,14 +7,14 @@ import {
   DefinePlugin,
   HotModuleReplacementPlugin,
   HtmlRspackPlugin,
-  type WebpackPluginInstance,
-} from '@rspack/core'
+} from "@rspack/core";
+import ESLintPlugin from "eslint-webpack-plugin";
 
-import LoadablePlugin from '@loadable/webpack-plugin'
-import ReactRefreshPlugin from '@rspack/plugin-react-refresh'
-import CssoWebpackPlugin from 'csso-webpack-plugin'
-import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin'
-import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
+import LoadablePlugin from "@loadable/webpack-plugin";
+import ReactRefreshPlugin from "@rspack/plugin-react-refresh";
+import CssoWebpackPlugin from "csso-webpack-plugin";
+import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
+import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
 
 import {
   ALIAS,
@@ -23,44 +23,49 @@ import {
   IS_DEV,
   IS_LAZY_COMPILATION,
   SRC_DIR,
-} from './constants'
-import * as Loaders from './loaders'
+} from "./constants";
+import * as Loaders from "./loaders";
 
-const withReport = Boolean(process.env.npm_config_withReport)
+const withReport = Boolean(process.env.npm_config_withReport);
 
 const entry: string[] = [
-  path.resolve(SRC_DIR, 'index.tsx'),
+  path.resolve(SRC_DIR, "index.tsx"),
   ...(IS_DEV
     ? [
-        ...(process.env.NO_SSR === 'true'
+        ...(process.env.NO_SSR === "true"
           ? []
-          : ['webpack-hot-middleware/client']),
-        'css-hot-loader/hotModuleReplacement',
+          : ["webpack-hot-middleware/client"]),
+        "css-hot-loader/hotModuleReplacement",
       ]
     : []),
-]
+];
 
 const filename = (ext: string): string =>
-  IS_DEV ? `[name].${ext}` : `[name].[chunkhash].${ext}`
+  IS_DEV ? `[name].${ext}` : `[name].[chunkhash].${ext}`;
 
-const plugins: WebpackPluginInstance[] = [
+const plugins: any[] = [
   new DefinePlugin({
-    NO_SSR: process.env.NO_SSR === 'true',
+    NO_SSR: process.env.NO_SSR === "true",
   }),
-  ...(process.env.NO_SSR === 'true'
+  new ESLintPlugin({
+    extensions: ["js", "jsx", "ts", "tsx"],
+    cache: true,
+    exclude: ["node_modules"],
+  }),
+  ...(process.env.NO_SSR === "true"
     ? [
         new HtmlRspackPlugin({
-          title: 'My App',
-          template: './src/assets/index.html',
+          title: "My App",
+          template: "./src/assets/index.html",
         }),
       ]
     : []),
   new ForkTsCheckerWebpackPlugin(),
   new CssExtractRspackPlugin({
-    filename: IS_DEV ? '[name].css' : '[name].[contenthash].css',
+    filename: IS_DEV ? "[name].css" : "[name].[contenthash].css",
   }),
   new LoadablePlugin({
-    filename: 'stats.json',
+    filename: "stats.json",
     writeToDisk: true,
   }) as { apply: () => void },
   ...(IS_DEV
@@ -68,33 +73,33 @@ const plugins: WebpackPluginInstance[] = [
     : [
         new CssoWebpackPlugin(),
         new BundleAnalyzerPlugin({
-          analyzerMode: withReport ? 'server' : 'disabled',
+          analyzerMode: withReport ? "server" : "disabled",
         }),
       ]),
   new CopyRspackPlugin({
     patterns: [
-      { from: `${SRC_DIR}/i18n/translations`, to: 'lang' },
-      ...(process.env.NO_SSR === 'true'
-        ? [{ from: `${SRC_DIR}/sw.js`, to: 'sw.js' }]
+      { from: `${SRC_DIR}/i18n/translations`, to: "lang" },
+      ...(process.env.NO_SSR === "true"
+        ? [{ from: `${SRC_DIR}/sw.js`, to: "sw.js" }]
         : []),
     ],
   }),
-]
+];
 
 const clientConfig: Configuration = {
-  name: 'client',
-  target: 'web',
+  name: "client",
+  target: "web",
   entry,
   plugins,
   output: {
     path: DIST_DIR,
-    filename: filename('js'),
-    publicPath: '/',
+    filename: filename("js"),
+    publicPath: "/",
   },
-  devtool: IS_DEV ? 'source-map' : false,
+  devtool: IS_DEV ? "source-map" : false,
   resolve: {
     alias: ALIAS,
-    extensions: ['.tsx', '.ts', '.js', '.scss', '.css'],
+    extensions: [".tsx", ".ts", ".js", ".scss", ".css"],
     fallback: {
       url: false,
       path: false,
@@ -103,7 +108,7 @@ const clientConfig: Configuration = {
   module: {
     rules: Object.values(Loaders).map((el) => el.client),
   },
-  ...(process.env.NO_SSR === 'true' && {
+  ...(process.env.NO_SSR === "true" && {
     devServer: {
       historyApiFallback: true,
       port: DEV_SERVER_PORT,
@@ -113,9 +118,9 @@ const clientConfig: Configuration = {
     splitChunks: {
       cacheGroups: {
         vendor: {
-          name: 'vendors',
+          name: "vendors",
           test: /[\\/]node_modules[\\/]/,
-          chunks: 'all',
+          chunks: "all",
         },
       },
     },
@@ -123,6 +128,6 @@ const clientConfig: Configuration = {
   experiments: {
     lazyCompilation: IS_LAZY_COMPILATION,
   },
-}
+};
 
-export { clientConfig }
+export { clientConfig };

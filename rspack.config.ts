@@ -1,18 +1,18 @@
-import { IS_DEV } from './rspack/constants'
+import { IS_DEV } from "./rspack/constants";
 
-import { clientConfig } from './rspack/client.config'
-import { serverConfig } from './rspack/server.config'
+import { clientConfig } from "./rspack/client.config";
+import { serverConfig } from "./rspack/server.config";
 
-const configs = []
+const configs = [];
 
-if (process.env.NO_SSR === 'true') {
-  configs.push(clientConfig)
+if (process.env.NO_SSR === "true") {
+  configs.push(clientConfig);
 } else {
-  configs.push(serverConfig)
+  configs.push(serverConfig);
 
   if (!IS_DEV) {
-    configs.push(clientConfig)
+    configs.push(clientConfig);
   }
 }
 
-module.exports = configs
+module.exports = configs;

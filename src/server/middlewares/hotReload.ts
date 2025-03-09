@@ -1,11 +1,11 @@
-import { rspack } from '@rspack/core'
-import type { RequestHandler } from 'express'
-import devMiddleware from 'webpack-dev-middleware'
-import hotMiddleware from 'webpack-hot-middleware'
+import { rspack } from "@rspack/core";
+import type { RequestHandler } from "express";
+import devMiddleware from "webpack-dev-middleware";
+import hotMiddleware from "webpack-hot-middleware";
 
-import { clientConfig as config } from 'rspack/client.config'
+import { clientConfig as config } from "rspack/client.config";
 
-const compiler = rspack({ ...config, mode: 'development' })
+const compiler = rspack({ ...config, mode: "development" });
 
 // biome-ignore lint/suspicious/noExplicitAny: Rspack types incompatibility
 export const devMiddlewareInstance = devMiddleware(compiler as any, {
@@ -16,12 +16,14 @@ export const devMiddlewareInstance = devMiddleware(compiler as any, {
   */
   writeToDisk: false,
   publicPath:
-    config.output?.publicPath != null ? String(config.output.publicPath) : '/',
-})
+    config.output?.publicPath != null ? String(config.output.publicPath) : "/",
+});
 
 export function hotReload(): RequestHandler[] {
+  console.log(1);
+
   // biome-ignore lint/suspicious/noExplicitAny: Rspack types incompatibility
-  return [devMiddlewareInstance, hotMiddleware(compiler as any)]
+  return [devMiddlewareInstance, hotMiddleware(compiler as any)];
 }
 
-export default hotReload
+export default hotReload;
